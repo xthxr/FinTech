@@ -167,10 +167,11 @@ button:hover {
 }
 
 .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 20px;
-    }
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 items per row */
+  gap: 20px;
+  padding: 20px;
+}
 
     .card {
       background: white;
@@ -199,3 +200,21 @@ button:hover {
     h2 {
       margin-bottom: 10px;
     }
+
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+  transform: scale(0.98);
+}
