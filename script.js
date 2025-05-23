@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // Fetch Real-Time Prices
-const apiKey = 'goldapi-2px7dsmaup9t31-io'; // Replace with your GoldAPI key
+const apiKey = 'goldapi-10egv19mb0g83yk-io'; // Replace with your GoldAPI key
 const goldPriceEl = document.getElementById('gold-price');
 const silverPriceEl = document.getElementById('silver-price');
 const statusEl = document.getElementById('status-message');
