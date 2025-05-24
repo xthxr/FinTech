@@ -22,12 +22,19 @@
 ## 🗂️ Project Structure
 
 ├── index.html # Landing page
+
 ├── home.html # Homepage after login
+
 ├── login.html # Login page
+
 ├── signup.html # Signup page
+
 ├── style.css # All styling
+
 ├── script.js # JavaScript interactions
+
 ├── image/ # Folder for images/assets
+
 └── README.md # Project documentation
 
 ---
