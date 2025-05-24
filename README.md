@@ -1,6 +1,6 @@
 # 💰 FinTech – Your Personal Finance Companion 🚀
 
-![FinTech Banner](image/banner.png) <!-- Replace with your actual image path -->
+![FinTech Banner](image/home.png) <!-- Replace with your actual image path -->
 
 ## 🌟 About FinTech
 
@@ -59,8 +59,8 @@ xdg-open index.html    # Linux
 ```
 ## 👥 Contributors
 
-- 👩‍💻 **Kanisha Sharma** – Frontend Developer  
+- 👩‍💻 **Kanisha Ravindra Sharma** – Frontend Developer  
   GitHub: [@KanishaSharma11](https://github.com/KanishaSharma11)
 
-- 👨‍💻 **OM** – Backend Developer  
+- 👨‍💻 **Om Roy** – Backend Developer  
   GitHub: [@omroy07](https://github.com/omroy07)
