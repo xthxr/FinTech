@@ -1,27 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Welcome</title>
   <style>
-    /* Reset default styles */
+    /* Reset some default styles */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    html,
-    body {
-      height: 100%;
-    }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: url('image/front.jpg') no-repeat center center fixed;
-      background-size: cover;
+      background: linear-gradient(135deg, #021223, #077b9b);
+      min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,7 +23,7 @@
     }
 
     .container {
-      background: rgba(255, 255, 255, 0.9);
+      background: #fff;
       padding: 40px 30px;
       border-radius: 12px;
       box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
@@ -44,14 +38,13 @@
         opacity: 0;
         transform: translateY(30px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
 
-    h1 {
+    h1, h2 {
       color: #333;
       margin-bottom: 20px;
     }
@@ -83,18 +76,26 @@
       transform: scale(0.98);
     }
 
+    a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
     @media (max-width: 480px) {
       .container {
         padding: 30px 20px;
       }
 
-      h1 {
+      h1, h2 {
         font-size: 1.4rem;
       }
     }
   </style>
 </head>
-
 <body>
   <div class="container">
     <h1>Welcome to Fintech</h1>
@@ -109,5 +110,4 @@
     }
   </script>
 </body>
-
 </html>
