@@ -45,30 +45,24 @@ function calculateMF() {
 }
 
 // Fetch Finance News
-function fetchNews() {
-  // Placeholder news articles; replace with actual API calls as needed
-  const newsArticles = [
-    {
-      title: "Gold prices remain steady amid market fluctuations",
-      url: "https://www.example.com/news/gold-prices-steady"
-    },
-    {
-      title: "Silver demand rises in industrial sectors",
-      url: "https://www.example.com/news/silver-demand-rises"
-    },
-    {
-      title: "Mutual funds see increased investor interest",
-      url: "https://www.example.com/news/mutual-funds-interest"
-    }
-  ];
-
+async function fetchNews() {
   const newsContainer = document.getElementById('news-articles');
-  newsContainer.innerHTML = '';
-  newsArticles.forEach(article => {
-    const articleElement = document.createElement('p');
-    articleElement.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a>`;
-    newsContainer.appendChild(articleElement);
-  });
+  newsContainer.innerHTML = 'Loading news...';
+
+  try {
+    const response = await fetch('https://api.marketaux.com/v1/news/all?api_token=A9FlHwdX2uFPeEuZPheK0YsoPzprL7LVSsl7renq&language=en&filter_entities=true&limit=5');
+    const data = await response.json();
+
+    newsContainer.innerHTML = '';
+    data.data.forEach(article => {
+      const articleElement = document.createElement('p');
+      articleElement.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a>`;
+      newsContainer.appendChild(articleElement);
+    });
+  } catch (error) {
+    newsContainer.innerHTML = 'Failed to load news.';
+    console.error('Error fetching news:', error);
+  }
 }
 
 // Fetch Stock Data using Alpha Vantage API
