@@ -1,26 +1,84 @@
+// utils
+function showToast(message, type = 'info', duration = 3000) {
+  const container = document.getElementById('toast-container');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.innerText = message;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateY(-20px)';
+    setTimeout(() => toast.remove(), 300);
+  }, duration);
+}
+
+function createToastContainer() {
+  if (document.getElementById('toast-container')) return;
+
+  // Wait for body to be ready
+  const container = document.createElement('div');
+  container.id = 'toast-container';
+  container.style.position = 'fixed';
+  container.style.top = '20px';
+  container.style.right = '20px';
+  container.style.zIndex = '9999';
+
+  document.body.appendChild(container);
+}
+
+function highlightErrorInput(input, isError) {
+  if (isError) {
+    input.classList.add('input-error');
+  } else {
+    input.classList.remove('input-error');
+  }
+}
+
+function formatCurrencyLive(input) {
+  input.addEventListener('input', () => {
+    const value = input.value.replace(/\D/g, '');
+    const formatted = new Intl.NumberFormat('en-IN').format(value);
+    input.value = formatted;
+  });
+}
+
 // SIP Calculator
 function calculateSIP() {
   const monthly = parseFloat(document.getElementById('monthly').value);
   const rate = parseFloat(document.getElementById('rate').value);
   const years = parseFloat(document.getElementById('years').value);
+  const errorEl = document.getElementById('sip-error');
+  const resultEl = document.getElementById('sip-results');
 
-  if (isNaN(monthly) || isNaN(rate) || isNaN(years)) {
-    alert('Please enter valid numbers in all fields.');
+  resultEl.innerHTML = '';
+  errorEl.textContent = '';
+
+  if (isNaN(monthly) || monthly <= 0) {
+    errorEl.textContent = 'Please enter a valid monthly amount.';
+    return;
+  }
+  if (isNaN(rate) || rate <= 0) {
+    errorEl.textContent = 'Please enter a valid return rate.';
+    return;
+  }
+  if (isNaN(years) || years <= 0) {
+    errorEl.textContent = 'Please enter a valid duration.';
     return;
   }
 
   const months = years * 12;
   const monthlyRate = rate / 12 / 100;
-
   const totalInvested = monthly * months;
   const futureValue = monthly * ((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate);
   const returns = futureValue - totalInvested;
 
-  document.getElementById('sip-results').innerHTML = `
+  resultEl.innerHTML = `
     <p><strong>Total Invested:</strong> ₹${totalInvested.toFixed(2)}</p>
     <p><strong>Estimated Returns:</strong> ₹${returns.toFixed(2)}</p>
     <p><strong>Total Value:</strong> ₹${futureValue.toFixed(2)}</p>
   `;
+  showToast('SIP calculation completed', 'success');
 }
 
 // Mutual Fund Calculator
@@ -28,26 +86,40 @@ function calculateMF() {
   const amount = parseFloat(document.getElementById('mf-amount').value);
   const rate = parseFloat(document.getElementById('mf-rate').value);
   const years = parseFloat(document.getElementById('mf-years').value);
+  const errorEl = document.getElementById('mf-error');
+  const resultEl = document.getElementById('mf-results');
 
-  if (isNaN(amount) || isNaN(rate) || isNaN(years)) {
-    alert('Please enter valid numbers in all fields.');
+  resultEl.innerHTML = '';
+  errorEl.textContent = '';
+
+  if (isNaN(amount) || amount <= 0) {
+    errorEl.textContent = 'Please enter a valid investment amount.';
+    return;
+  }
+  if (isNaN(rate) || rate <= 0) {
+    errorEl.textContent = 'Please enter a valid return rate.';
+    return;
+  }
+  if (isNaN(years) || years <= 0) {
+    errorEl.textContent = 'Please enter a valid duration.';
     return;
   }
 
   const futureValue = amount * Math.pow(1 + rate / 100, years);
   const returns = futureValue - amount;
 
-  document.getElementById('mf-results').innerHTML = `
+  resultEl.innerHTML = `
     <p><strong>Invested Amount:</strong> ₹${amount.toFixed(2)}</p>
     <p><strong>Estimated Returns:</strong> ₹${returns.toFixed(2)}</p>
     <p><strong>Total Value:</strong> ₹${futureValue.toFixed(2)}</p>
   `;
+  showToast('Mutual Fund calculation completed', 'success');
 }
 
 // Fetch Finance News
 async function fetchNews() {
   const newsContainer = document.getElementById('news-articles');
-  newsContainer.innerHTML = 'Loading news...';
+  newsContainer.innerHTML = '<div class="loader"></div>';
 
   try {
     const response = await fetch('https://api.marketaux.com/v1/news/all?api_token=A9FlHwdX2uFPeEuZPheK0YsoPzprL7LVSsl7renq&language=en&filter_entities=true&limit=5');
@@ -59,28 +131,34 @@ async function fetchNews() {
       articleElement.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a>`;
       newsContainer.appendChild(articleElement);
     });
+    showToast('News loaded.', 'success');
   } catch (error) {
-    newsContainer.innerHTML = 'Failed to load news.';
+    newsContainer.innerHTML = '<div class="error-card">Failed to load news.</div>';
     console.error('Error fetching news:', error);
+    showToast('Failed to fetch news.', 'error');
   }
 }
 
 // Fetch Stock Data using Alpha Vantage API
 function fetchStockData() {
   const symbol = document.getElementById('stock-symbol').value.toUpperCase();
+  const stockContainer = document.getElementById('stock-data');
+
   if (!symbol) {
-    alert('Please enter a stock symbol.');
+    showToast('Please enter a stock symbol.', 'error');
     return;
   }
 
-  const apiKey = ' WWJF4M4ZUZWBNRTC'; // Replace with your Alpha Vantage API key
+  stockContainer.innerHTML = '<div class="loader"></div>';
+
+  const apiKey = 'WWJF4M4ZUZWBNRTC';
   const url = `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${symbol}&interval=5min&apikey=${apiKey}`;
 
   fetch(url)
     .then(response => response.json())
     .then(data => {
       if (data['Error Message']) {
-        document.getElementById('stock-data').innerText = 'Invalid stock symbol. Please try again.';
+        stockContainer.innerHTML = '<div class="error-card">Invalid stock symbol. Please try again.</div>';
         return;
       }
 
@@ -94,7 +172,7 @@ function fetchStockData() {
       const close = parseFloat(latestData['4. close']).toFixed(2);
       const volume = parseInt(latestData['5. volume']).toLocaleString();
 
-      document.getElementById('stock-data').innerHTML = `
+      stockContainer.innerHTML = `
         <p><strong>Symbol:</strong> ${symbol}</p>
         <p><strong>Open:</strong> $${open}</p>
         <p><strong>High:</strong> $${high}</p>
@@ -102,15 +180,18 @@ function fetchStockData() {
         <p><strong>Close:</strong> $${close}</p>
         <p><strong>Volume:</strong> ${volume}</p>
       `;
+      showToast('Stock data fetched.', 'success');
     })
     .catch(error => {
       console.error('Error fetching stock data:', error);
-      document.getElementById('stock-data').innerText = 'Error fetching stock data. Please try again later.';
+      stockContainer.innerHTML = '<div class="error-card">Error fetching stock data. Please try again later.</div>';
+      showToast('Failed to fetch stock data.', 'error');
     });
 }
 
 // Initialize the dashboard
 document.addEventListener('DOMContentLoaded', () => {
+  createToastContainer();
   fetchPrices();
   fetchNews();
 });
@@ -143,11 +224,10 @@ function showTrend(el, currentPrice, prevPrice, metalName) {
 
 async function fetchPrices() {
   btn.disabled = true;
-  statusEl.textContent = 'Fetching latest prices...';
+  statusEl.innerHTML = '<div class="loader"></div>';
   goldPriceEl.textContent = 'Loading gold price...';
   silverPriceEl.textContent = 'Loading silver price...';
 
-  // Prepare trend display elements
   let goldTrendEl = document.getElementById('gold-trend');
   if (!goldTrendEl) {
     goldTrendEl = document.createElement('div');
@@ -163,20 +243,16 @@ async function fetchPrices() {
   }
 
   try {
-    // Fetch gold price (XAU = Gold)
     const goldResponse = await fetch('https://www.goldapi.io/api/XAU/USD', {
       headers: { 'x-access-token': apiKey, 'Content-Type': 'application/json' }
     });
     if (!goldResponse.ok) throw new Error(`Gold API error: ${goldResponse.status}`);
-
     const goldData = await goldResponse.json();
 
-    // Fetch silver price (XAG = Silver)
     const silverResponse = await fetch('https://www.goldapi.io/api/XAG/USD', {
       headers: { 'x-access-token': apiKey, 'Content-Type': 'application/json' }
     });
     if (!silverResponse.ok) throw new Error(`Silver API error: ${silverResponse.status}`);
-
     const silverData = await silverResponse.json();
 
     const goldPrice = goldData.price;
@@ -185,26 +261,24 @@ async function fetchPrices() {
     goldPriceEl.textContent = `Gold Price: $${goldPrice.toFixed(2)} per ounce`;
     silverPriceEl.textContent = `Silver Price: $${silverPrice.toFixed(2)} per ounce`;
 
-    // Get previous prices from localStorage (null if none)
     const prevGoldPrice = localStorage.getItem('prevGoldPrice') ? parseFloat(localStorage.getItem('prevGoldPrice')) : null;
     const prevSilverPrice = localStorage.getItem('prevSilverPrice') ? parseFloat(localStorage.getItem('prevSilverPrice')) : null;
 
-    // Show trends
     showTrend(goldTrendEl, goldPrice, prevGoldPrice, 'Gold');
     showTrend(silverTrendEl, silverPrice, prevSilverPrice, 'Silver');
 
-    // Save current prices for next comparison
     localStorage.setItem('prevGoldPrice', goldPrice);
     localStorage.setItem('prevSilverPrice', silverPrice);
 
     statusEl.textContent = 'Prices updated successfully!';
     statusEl.style.color = 'green';
-
+    showToast('Gold & Silver prices updated.', 'success');
   } catch (error) {
     goldPriceEl.textContent = 'Error loading gold price';
     silverPriceEl.textContent = 'Error loading silver price';
-    statusEl.textContent = `Failed to fetch prices: ${error.message}`;
+    statusEl.innerHTML = `<div class="error-card">${error.message}</div>`;
     statusEl.style.color = 'red';
+    showToast('Failed to fetch metal prices.', 'error');
     console.error('FetchPrices Error:', error);
   } finally {
     btn.disabled = false;
@@ -219,15 +293,14 @@ const expensesList = document.getElementById('expensesList');
 const totalAmount = document.getElementById('totalAmount');
 const clearExpensesBtn = document.getElementById('clearExpensesBtn');
 
-let expenses = [];
+let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
 
 function formatCurrency(num) {
-  return '$' + num.toFixed(2);
+  return '₹' + num.toFixed(2);
 }
 
 function updateExpensesUI() {
   expensesList.innerHTML = '';
-
   expenses.forEach((expense) => {
     const div = document.createElement('div');
     div.classList.add('expense-item');
@@ -240,6 +313,7 @@ function updateExpensesUI() {
 
   const total = expenses.reduce((acc, curr) => acc + curr.amount, 0);
   totalAmount.textContent = `Total: ${formatCurrency(total)}`;
+  localStorage.setItem('expenses', JSON.stringify(expenses));
 }
 
 addExpenseBtn.addEventListener('click', () => {
@@ -247,11 +321,11 @@ addExpenseBtn.addEventListener('click', () => {
   const amount = parseFloat(amountInput.value);
 
   if (!desc) {
-    alert('Please enter a description.');
+    showToast('Please enter a description.', 'error');
     return;
   }
   if (isNaN(amount) || amount <= 0) {
-    alert('Please enter a valid positive amount.');
+    showToast('Please enter a valid positive amount.', 'error');
     return;
   }
 
@@ -261,14 +335,31 @@ addExpenseBtn.addEventListener('click', () => {
   amountInput.value = '';
 
   updateExpensesUI();
+  showToast('Expense added.', 'success');
 });
 
 clearExpensesBtn.addEventListener('click', () => {
-  if (confirm('Are you sure you want to clear all expenses?')) {
+  showConfirm('Are you sure you want to clear all expenses?', () => {
     expenses = [];
     updateExpensesUI();
-  }
+    showToast('All expenses cleared.', 'info');
+  });
 });
+
+function showConfirm(message, onYes) {
+  const box = document.getElementById('confirm-box');
+  const msg = document.getElementById('confirm-msg');
+  const ok = document.getElementById('confirm-ok');
+  const cancel = document.getElementById('confirm-cancel');
+
+  msg.textContent = message;
+  box.style.display = 'block';
+
+  const cleanup = () => box.style.display = 'none';
+
+  ok.onclick = () => { cleanup(); onYes(); };
+  cancel.onclick = cleanup;
+}
 
 // Initial render
 updateExpensesUI();
