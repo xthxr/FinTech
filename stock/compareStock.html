@@ -1,0 +1,200 @@
+<!-- compare-stocks.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Compare Stocks</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --bg-color: #f0f4ff;
+      --text-color: #1f2937;
+      --card-bg: #f9fafb;
+      --accent: #4f46e5;
+    }
+    body.dark {
+      --bg-color: #1e1e2f;
+      --text-color: #81abd5;
+      --card-bg: #2c2c40;
+      --accent: #8b5cf6;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      margin: 0;
+      padding: 20px;
+      transition: background 0.6s ease, color 0.6s ease;
+    }
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 16px;
+      background-color: var(--card-bg);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+    h1 {
+      text-align: center;
+      color: var(--accent);
+    }
+    .input-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    input, button {
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+    }
+    button {
+      background-color: var(--accent);
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    button:hover {
+      background-color: #3730a3;
+    }
+    .toggle-theme {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: transparent;
+      font-size: 24px;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+    .toggle-theme:hover {
+      transform: rotate(20deg) scale(1.2);
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 30px;
+    }
+    .card {
+      background-color: var(--bg-color);
+      border: 1px solid #ccc;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+    }
+    .card h3 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--accent);
+    }
+    .card p {
+      font-size: 18px;
+      margin: 8px 0 0;
+    }
+  </style>
+</head>
+<body>
+  <button class="toggle-theme" onclick="toggleTheme()" id="themeIcon">🌙</button>
+  <div class="container">
+    <h1>📉 Compare Two Stocks</h1>
+    <div class="input-section">
+      <input id="symbol1" type="text" placeholder="Enter Symbol 1 (e.g. AAPL)" />
+      <input id="symbol2" type="text" placeholder="Enter Symbol 2 (e.g. MSFT)" />
+      <button onclick="loadComparison()">Compare</button>
+    </div>
+    <canvas id="compareChart"></canvas>
+    <div class="card-grid" id="summaryGrid"></div>
+  </div>
+  <script>
+    let chart;
+    const API_KEY = 'api_key'; // Replace with your Twelve Data API key
+
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('themeIcon');
+      body.classList.toggle('dark');
+      icon.textContent = body.classList.contains('dark') ? '☀️' : '🌙';
+    }
+
+    async function fetchStockData(symbol) {
+      const url = `https://api.twelvedata.com/time_series?symbol=${symbol}&interval=1min&outputsize=30&apikey=${API_KEY}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.status === 'error') {
+        console.error(data.message);
+        return null;
+      }
+      return {
+        symbol,
+        dates: data.values.map(v => v.datetime).reverse(),
+        prices: data.values.map(v => parseFloat(v.close)).reverse(),
+        summary: {
+          Open: data.values[0].open,
+          High: data.values[0].high,
+          Low: data.values[0].low,
+          Close: data.values[0].close,
+          Volume: data.values[0].volume
+        }
+      };
+    }
+
+    async function loadComparison() {
+      const symbol1 = document.getElementById("symbol1").value.trim().toUpperCase();
+      const symbol2 = document.getElementById("symbol2").value.trim().toUpperCase();
+      const data1 = await fetchStockData(symbol1);
+      const data2 = await fetchStockData(symbol2);
+
+      if (!data1 || !data2) return alert("Invalid symbol(s) or failed to fetch data");
+
+      if (chart) chart.destroy();
+      const ctx = document.getElementById("compareChart").getContext("2d");
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: data1.dates,
+          datasets: [
+            {
+              label: data1.symbol,
+              data: data1.prices,
+              borderColor: '#4f46e5',
+              fill: false
+            },
+            {
+              label: data2.symbol,
+              data: data2.prices,
+              borderColor: '#f97316',
+              fill: false
+            }
+          ]
+        }
+      });
+
+      const grid = document.getElementById("summaryGrid");
+      grid.innerHTML = '';
+      const createCard = (title, value, symbol) => `
+        <div class="card">
+          <h3>${symbol} - ${title}</h3>
+          <p>${value}</p>
+        </div>
+      `;
+      for (const [key, val] of Object.entries(data1.summary)) {
+        grid.innerHTML += createCard(key, val, data1.symbol);
+      }
+      for (const [key, val] of Object.entries(data2.summary)) {
+        grid.innerHTML += createCard(key, val, data2.symbol);
+      }
+    }
+  </script>
+</body>
+</html>
