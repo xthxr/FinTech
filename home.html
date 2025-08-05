@@ -10,12 +10,36 @@
 
 <header>
   <div class="header-bar">
-    <h1>Fintech</h1>
-    
-  </div>
+      <h1>Fintech</h1>
+
+      <div id="user-info">
+        <!-- Welcome message and logout button will be inserted here -->
+      </div>
+    </div>
 </header>
 
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userInfoDiv = document.getElementById("user-info");
+      const username = localStorage.getItem("loggedInUser");
 
+      if (username) {
+        userInfoDiv.innerHTML = `
+  <span class="username" >Welcome, <strong class="user-welcome">${username}</strong> |</span>
+  <a href="#" id="logout" class="logout-link">Logout</a>
+`;
+
+        document.getElementById("logout").addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser");
+          window.location.href = "login.html"; // Redirect to login page after logout
+        });
+      } else {
+        userInfoDiv.innerHTML = `<a href="login.html" style="color: white;">Logout</a>`;
+      }
+    });
+  </script>
+  
 <body>
   <div id="toast-container"></div>
 
@@ -112,3 +136,4 @@
 </body>
 
 </html>
+
