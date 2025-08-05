@@ -27,6 +27,30 @@ header h1 {
   margin: 0;
 }
 
+
+.logout-link {
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.username,
+.logout-link {
+  font-size: 1.22rem;
+}
+
+@media (max-width: 570px) {
+  #user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logout-link {
+    display: inline-block;
+    text-align: left;
+  }
+}
+
 /* ========== Navigation ========== */
 nav ul {
   list-style: none;
@@ -222,6 +246,12 @@ button:active {
 .toast.error   { background-color: #f44336; }
 .toast.info    { background-color: #2196f3; }
 
+/* ========== Footer ========== */
+#footer {
+  color: white;
+  text-align: center;
+}
+
 /* ========== Loader ========== */
 .loader {
   border: 4px solid #eee;
@@ -317,3 +347,4 @@ button:active {
     grid-template-columns: 1fr;
   }
 }
+
