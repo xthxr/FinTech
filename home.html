@@ -112,6 +112,36 @@
         <button class="clear-btn" id="clearExpensesBtn">Clear All Expenses</button>
       </div>
 
+      <!-- Currency Convertor -->
+      <div class="card">
+        <h2>Currency Converter</h2>
+        <img src="image/CurrencyConvertorImage.jpg" alt="Currency Image">
+        
+        <label for="amountToConvert">Amount:</label>
+        <input type="number" id="amountToConvert" placeholder="e.g., 100" />
+
+        <label for="fromCurrency">From:</label>
+        <select id="fromCurrency">
+          <option value="INR">INR</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+        </select>
+
+        <label for="toCurrency">To:</label>
+        <select id="toCurrency">
+          <option value="USD">USD</option>
+          <option value="INR">INR</option>
+          <option value="EUR">EUR</option>
+          <option value="GBP">GBP</option>
+          <option value="JPY">JPY</option>
+        </select>
+
+        <button onclick="convertCurrency()">Convert</button>
+        <div id="conversionResult"></div>
+    </div>
+
       <!-- Finance News -->
       <div class="card">
         <h2>Finance News</h2>
