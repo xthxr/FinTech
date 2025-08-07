@@ -8,39 +8,16 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 
-<header>
-  <div class="header-bar">
+<body>
+  <header>
+    <div class="header-bar">
       <h1>Fintech</h1>
-
       <div id="user-info">
         <!-- Welcome message and logout button will be inserted here -->
       </div>
     </div>
-</header>
+  </header>
 
-<script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const userInfoDiv = document.getElementById("user-info");
-      const username = localStorage.getItem("loggedInUser");
-
-      if (username) {
-        userInfoDiv.innerHTML = `
-  <span class="username" >Welcome, <strong class="user-welcome">${username}</strong> |</span>
-  <a href="#" id="logout" class="logout-link">Logout</a>
-`;
-
-        document.getElementById("logout").addEventListener("click", (e) => {
-          e.preventDefault();
-          localStorage.removeItem("loggedInUser");
-          window.location.href = "login.html"; // Redirect to login page after logout
-        });
-      } else {
-        userInfoDiv.innerHTML = `<a href="login.html" style="color: white;">Logout</a>`;
-      }
-    });
-  </script>
-  
-<body>
   <div id="toast-container"></div>
 
   <main>
@@ -49,12 +26,11 @@
       <!-- Stock Prediction -->
       <div class="card stock">
         <h2>Stock Prediction</h2>
-        <img src="image/stock.webp" alt="Stock Image"> 
-        <!-- add Link to see stock chart analysis  -->
-         <ul> 
+        <img src="image/stock.webp" alt="Stock Image">
+        <ul>
           <li class="stockbtn"><a href="stock/singleStock.html">Single Stock & Analytics</a></li>
           <li class="stockbtn"><a href="stock/compareStock.html">Stock Comparison & Analytics</a></li>
-         </ul>
+        </ul>
         <div id="stock-data"></div>
       </div>
 
@@ -64,7 +40,7 @@
         <img src="image/goldsilver.avif" alt="Gold Silver Image">
         <div id="gold-price">Gold price will appear here</div>
         <div id="silver-price">Silver price will appear here</div>
-        <button id="fetch-prices-btn">Predict & Fetch </button>
+        <button id="fetch-prices-btn">Predict & Fetch</button>
         <div id="status-message" style="color: red;"></div>
       </div>
 
@@ -128,12 +104,39 @@
     </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 Fintech Dashboard. All rights reserved.</p>
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 <strong>Fintech Dashboard</strong>. All rights reserved.</p>
+    </div>
   </footer>
+  
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const userInfoDiv = document.getElementById("user-info");
+      const username = localStorage.getItem("loggedInUser");
+
+      if (username) {
+        userInfoDiv.innerHTML = `
+  <span class="username">Welcome, <strong class="user-welcome">${username}</strong></span>
+  <a href="#" id="logout" class="btn logout-btn">Logout</a>
+`;
+
+        document.getElementById("logout").addEventListener("click", (e) => {
+          e.preventDefault();
+          localStorage.removeItem("loggedInUser");
+          window.location.href = "login.html"; // redirect to login
+        });
+      } else {
+        userInfoDiv.innerHTML = `
+          <a href="login.html" class="btn">Login</a>
+          <a href="signup.html" class="btn">Sign Up</a>
+        `;
+      }
+    });
+  </script>
 
   <script src="script.js"></script>
 </body>
 
 </html>
-
