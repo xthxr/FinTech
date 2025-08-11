@@ -500,7 +500,7 @@ button:active {
     .container {
       max-width: 1100px;
       margin: auto;
-      padding: 20px;
+      padding: 15px;
     }
 
     h1 {
@@ -514,6 +514,15 @@ button:active {
       margin-bottom: 30px;
       color: #555;
     }
+    .social-text{
+      color: #555;
+      margin-top: 50px;
+    }
+    .ending-text{
+      text-align: center;
+      color: #555;
+      margin-top: 30px;
+    }
 
     .contact-grid {
       display: grid;
@@ -523,34 +532,48 @@ button:active {
 
     .contact-form {
       background: #fff;
-      padding: 20px;
+      padding: 10px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 5px 5px 10px rgba(13, 10, 10, 0.3);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 15px;
+      background:#086882;
+      height: 400px;
+      width: 100%;
     }
-
+    
     .contact-form label {
-      display: block;
-      margin-top: 15px;
       font-weight: bold;
+      font-size: medium;
+      color: white;
     }
-
+    
+    .contact-form label::after {
+      content: ":";
+    }
+    
     .contact-form input,
     .contact-form textarea {
-      width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+      width: 90%;
+      border: 1px solid black;
+      box-shadow: 1px 1px 1px black;
       border-radius: 5px;
     }
-
+    .contact-form textarea {
+      height: 100px;
+      font-size: large;
+    }
     .contact-form button {
-      margin-top: 15px;
+      grid-column: span 2;
       padding: 10px;
       background: #0077b6;
       color: #fff;
-      border: none;
+      border: 0.5px solid whitesmoke;
       border-radius: 5px;
       cursor: pointer;
+      width: 100%;
     }
 
     .contact-form button:hover {
@@ -558,25 +581,29 @@ button:active {
     }
 
     .contact-info {
-      background: #fff;
+      background:#086882;
       padding: 20px;
       border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 5px 5px 10px rgba(13, 10, 10, 0.3);
     }
 
     .contact-info h2 {
       margin-bottom: 15px;
+      color: white;
     }
 
     .contact-info p {
       margin-bottom: 10px;
+      color: white;
     }
 
     .social-links a {
       display: inline-block;
-      margin-right: 10px;
+      margin-right: 20px;
       text-decoration: none;
-      color: #0077b6;
+      color: white;
+      font-size: 22px;
+      margin-top: 15px;
     }
 
     .social-links a:hover {
@@ -589,4 +616,18 @@ button:active {
       .contact-grid {
         grid-template-columns: 1fr;
       }
+    }
+
+    .image-con {
+      width: 100%;
+      height: 300px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    
+    .image-con img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; 
+      object-position: center; 
     }
