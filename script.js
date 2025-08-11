@@ -3,7 +3,7 @@ function showToast(message, type = 'info', duration = 3000) {
   const container = document.getElementById('toast-container');
   const toast = document.createElement('div');
   toast.className = `toast ${type}`;
-  toast.innerText = message;
+  toast.innerText = message; 
   container.appendChild(toast);
 
   setTimeout(() => {
@@ -354,4 +354,36 @@ function showConfirm(message, onYes) {
   cancel.onclick = cleanup;
 }
 
+// Initial render
 updateExpensesUI();
+
+// Currency Converter
+function convertCurrency() {
+  const amount = parseFloat(document.getElementById('amountToConvert').value);
+  const from = document.getElementById('fromCurrency').value;
+  const to = document.getElementById('toCurrency').value;
+  const resultDiv = document.getElementById('conversionResult');
+
+  if (!amount || isNaN(amount)) {
+    resultDiv.innerText = "Please enter a valid amount.";
+    return;
+  }
+
+  const apiUrl = `https://open.er-api.com/v6/latest/${from}`;
+
+  fetch(apiUrl)
+    .then(response => response.json())
+    .then(data => {
+      if (data.result === "success" && data.rates[to]) {
+        const rate = data.rates[to];
+        const converted = (amount * rate).toFixed(2);
+        resultDiv.innerText = `${amount} ${from} = ${converted} ${to}`;
+      } else {
+        resultDiv.innerText = "Conversion failed. Please check the currencies.";
+      }
+    })
+    .catch(error => {
+      console.error("Error:", error);
+      resultDiv.innerText = "Error fetching conversion rates.";
+    });
+}
