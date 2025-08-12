@@ -2,7 +2,6 @@
   "name": "fintech",
   "version": "1.0.0",
   "description": "![FinTech Banner](image/home.png) <!-- Replace with your actual image path -->",
-  "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
