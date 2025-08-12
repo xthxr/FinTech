@@ -70,5 +70,6 @@ xdg-open index.html    # Linux
   GitHub: [@KanishaSharma11](https://github.com/KanishaSharma11)
   
 - 👨‍💻 **Om Roy** – Backend Developer & GenAI Engineer
+  
   GitHub: [@omroy07](https://github.com/omroy07)
   
