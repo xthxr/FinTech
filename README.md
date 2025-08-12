@@ -69,6 +69,7 @@ xdg-open index.html    # Linux
 - 👩‍💻 **Kanisha Ravindra Sharma** – Project Admin & Frontend Developer  
   GitHub: [@KanishaSharma11](https://github.com/KanishaSharma11)
   
-- 👨‍💻 **Om Roy** – Backend Developer  
+- 👨‍💻 **Om Roy** – Backend Developer & GenAI Engineer
+  
   GitHub: [@omroy07](https://github.com/omroy07)
   
