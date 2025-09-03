@@ -297,6 +297,27 @@ button:hover {
   background: linear-gradient(135deg, var(--accent-dark), var(--accent));
 }
 
+
+.auth-buttons a {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-left: 10px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+
+.auth-buttons a:hover {
+  background: linear-gradient(135deg, #0072ff, #00c6ff);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 114, 255, 0.4);
+}
+
+
 /* --------- Contact Section --------- */
 .contact-grid {
   display: grid;
