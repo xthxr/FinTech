@@ -125,6 +125,19 @@ nav ul {
 }
 
 /* --------- Cards Grid --------- */
+/* Dashboard Grid → 2 cards per row */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 30px;
+  padding: 30px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack on smaller screens */
+  }
+}
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -143,9 +156,10 @@ nav ul {
   -webkit-backdrop-filter: blur(14px);
   border: 1px solid var(--glass-2);
   border-radius: var(--radius);
-  padding: 28px;
+  padding: 25px;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.5);
   transition: 0.3s;
+  min-height: 300px;
 }
 .card:hover {
   transform: translateY(-6px);
@@ -169,6 +183,28 @@ nav ul {
   font-size: 1rem;
   line-height: 1.6;
   color: var(--muted);
+}
+
+.card ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+}
+
+.card ul li {
+  margin: 8px 0;
+}
+
+.card ul li a {
+  color: #00c6ff;            /* theme blue */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.card ul li a:hover {
+  color: #00f5d4;            /* aqua glow on hover */
+  text-shadow: 0 0 8px rgba(0, 245, 212, 0.7);
 }
 
 /* --------- Currency Converter --------- */
@@ -292,28 +328,6 @@ button:hover {
 .footer-links a:hover {
   text-decoration: underline;
 }
-
-
-/* Dashboard Grid → 2 cards per row */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 columns */
-  gap: 30px;
-  padding: 30px;
-}
-
-@media (max-width: 900px) {
-  .dashboard-grid {
-    grid-template-columns: 1fr; /* Stack on smaller screens */
-  }
-}
-
-/* Make cards more spacious */
-.card {
-  padding: 25px;
-  min-height: 300px;
-}
-
 .image-contact {
   display: none;
 }
