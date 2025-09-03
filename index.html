@@ -5,11 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fintech Dashboard</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- FontAwesome for social icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
   <!-- Header -->
-  <header>
+  <header class="header-bar">
     <h1>Fintech Dashboard</h1>
     <div class="auth-buttons">
       <span class="username">Hello, User</span>
@@ -18,7 +20,7 @@
   </header>
 
   <!-- Navigation -->
-  <nav>
+  <nav class="navbar">
     <ul>
       <li><a href="#">Home</a></li>
       <li><a href="#">Stocks</a></li>
@@ -31,7 +33,7 @@
   <!-- Main Content -->
   <main>
     <!-- Cards Grid -->
-    <div class="cards-grid">
+    <div class="dashboard-grid">
       <!-- Stock Prediction Card -->
       <div class="card">
         <h2>Stock Prediction</h2>
@@ -51,8 +53,8 @@
     </div>
 
     <!-- Currency Converter -->
-    <div class="currency-converter">
-      <h3>Currency Converter</h3>
+    <div class="card">
+      <h2>Currency Converter</h2>
       <label for="amount">Amount:</label>
       <input type="number" id="amount" placeholder="e.g., 100" />
 
@@ -87,9 +89,6 @@
     </div>
     <p>&copy; 2025 Fintech. All rights reserved.</p>
   </footer>
-
-  <!-- FontAwesome for social icons -->
-  <script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
 
   <!-- Currency Converter Script -->
   <script>
