@@ -640,7 +640,7 @@ button:active {
 
 
 
-/* ========== Glassmorphism Cards with RGB Glow Border ========== */
+/* Glassmorphism Card with RGB Border Glow */
 .card,
 .currency-converter {
   position: relative;
@@ -653,17 +653,22 @@ button:active {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   overflow: hidden;
   z-index: 1;
+
+  /* glassy background */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+/* RGB border effect */
 .card::before,
 .currency-converter::before {
   content: "";
   position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 14px;
+  inset: 0; /* covers full box */
+  padding: 2px; /* border thickness */
+  border-radius: 12px;
   background: linear-gradient(
     270deg,
     #ff0000,
@@ -677,23 +682,13 @@ button:active {
     #ff0000
   );
   background-size: 600% 600%;
-  z-index: -2;
   animation: rgbGlow 12s linear infinite;
-}
-
-.card::after,
-.currency-converter::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  right: 2px;
-  bottom: 2px;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.15); /* glassy background */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0); /* keeps glow only at border */
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
   z-index: -1;
 }
 
@@ -708,3 +703,4 @@ button:active {
   transform: translateY(-5px);
   box-shadow: 0 0 30px rgba(0,0,0,0.4);
 }
+
