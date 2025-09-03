@@ -207,6 +207,40 @@ nav ul {
   text-shadow: 0 0 8px rgba(0, 245, 212, 0.7);
 }
 
+/* Currency Converter Dropdown Styling */
+.card select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 6px;
+  border: none;
+  background: rgba(30, 30, 30, 0.9); /* dark glass background */
+  color: #fff;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s ease, border 0.3s ease;
+  appearance: none; /* remove default arrow */
+}
+
+/* Glow when focused */
+.card select:focus {
+  border: 1px solid #00f5d4;
+  box-shadow: 0 0 8px rgba(0, 245, 212, 0.5);
+}
+
+/* Options inside dropdown */
+.card select option {
+  background: #121212; /* dark background */
+  color: #fff;         /* white text */
+  padding: 10px;
+}
+
+/* Hovered option (modern browsers) */
+.card select option:hover {
+  background: #00c6ff;
+  color: #000;
+}
+
+
 /* --------- Currency Converter --------- */
 .currency-converter {
   background: var(--glass-1);
