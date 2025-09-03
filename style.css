@@ -119,12 +119,11 @@ section {
 }
 
 .card {
-  /* Glassmorphism effect properties - added by @xthxr */
-  
+  /* Glassmorphism effect properties */
   background: rgba(255, 255, 255, 0.2); /* Semi-transparent white background */
-  backdrop-filter: blur(10px) saturate(180%); /* Blurs the content behind the card */
-  -webkit-backdrop-filter: blur(10px) saturate(180%); /* Safari support */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+  backdrop-filter: blur(10px); /* This blurs the content behind the card */
+  -webkit-backdrop-filter: blur(10px); /* For Safari browser support */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle, semi-transparent border */
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 20px;
