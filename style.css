@@ -213,7 +213,7 @@ nav ul {
   padding: 10px;
   border-radius: 6px;
   border: none;
-  background: rgba(30, 30, 30, 0.9); /* dark glass background */
+  background: #121212; /* dark glass background */
   color: #fff;
   font-size: 1rem;
   outline: none;
