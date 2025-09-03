@@ -1,477 +1,272 @@
 /* =========================
-   MODERN GLASSMORPHISM CSS
-   Replaces full styles.css
+   DARK ABSTRACT + GLASS UI
    ========================= */
 
-/* --------- 1) Reset & Typography --------- */
-:root{
-  --bg-1: #021223;
-  --bg-2: #077b9b;
-  --glass-0: rgba(255,255,255,0.06);
-  --glass-1: rgba(255,255,255,0.12);
-  --glass-2: rgba(255,255,255,0.18);
+:root {
+  --bg-1: #0a0a0f;
+  --bg-2: #111122;
+  --glass-1: rgba(255, 255, 255, 0.08);
+  --glass-2: rgba(255, 255, 255, 0.16);
   --accent: #00eaff;
   --accent-dark: #0077b6;
-  --muted: rgba(255,255,255,0.75);
+  --muted: rgba(255, 255, 255, 0.7);
   --danger: #dc3545;
   --success: #4caf50;
-  --text-dark: #0f1720;
-  --soft-shadow: 0 8px 28px rgba(2, 6, 23, 0.45);
-  --glass-radius: 12px;
+  --radius: 12px;
 }
 
+/* --------- Reset --------- */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-html,body {
-  height: 100%;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  box-sizing: border-box;
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, system-ui, -apple-system;
-  background: linear-gradient(135deg, var(--bg-1) 0%, var(--bg-2) 100%);
-  color: var(--text-dark);
   min-height: 100vh;
-  padding: 24px;
-  line-height: 1.45;
-  -webkit-font-feature-settings: "liga" 1;
-}
-
-/* container / page width helper */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12px;
-}
-
-/* --------- 2) Header & Nav --------- */
-header {
-  background: linear-gradient(90deg, rgba(0,0,0,0.25), rgba(255,255,255,0.02));
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #fff;
-  padding: 14px 20px;
-  border-radius: 10px;
+  padding: 20px;
+  position: relative;
+  overflow-x: hidden;
+  background: var(--bg-1);
+}
+
+/* Abstract glowing background */
+body::before,
+body::after {
+  content: "";
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(200px);
+  opacity: 0.4;
+  z-index: -1;
+}
+body::before {
+  top: -150px;
+  left: -150px;
+  background: #0077ff;
+}
+body::after {
+  bottom: -150px;
+  right: -150px;
+  background: #00ffaa;
+}
+
+/* --------- Header & Nav --------- */
+header {
+  background: var(--glass-1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-2);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.header-bar {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  box-shadow: var(--soft-shadow);
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* Nav container */
+nav {
+  margin-top: 14px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+/* Left links */
+.nav-left {
+  display: flex;
+  gap: 18px;
+}
+
+.nav-left a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--muted);
+  font-weight: 600;
+  transition: 0.25s;
+}
+.nav-left a:hover {
+  background: var(--glass-1);
+  color: #fff;
+}
+
+/* Right side (logout) */
+.nav-right {
+  margin-left: auto;
+}
+.logout-btn {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #ff4d4d, #c62828);
+  color: #fff;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.logout-btn:hover {
+  background: linear-gradient(135deg, #c62828, #ff4d4d);
+}
+
+/* --------- Sections --------- */
+section {
+  margin: 20px 0;
+}
+
+/* --------- Cards / Converter --------- */
+.card,
+.currency-converter {
+  background: var(--glass-1);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid var(--glass-2);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.5);
+  transition: 0.3s;
+}
+.card:hover,
+.currency-converter:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.7);
+}
+
+/* Card content */
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 14px;
+}
+.card h2,
+.currency-converter h2,
+.currency-converter h3 {
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--accent);
+  padding-left: 10px;
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.7);
+}
+.card p,
+.currency-converter p {
+  color: var(--muted);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+/* --------- Inputs & Buttons --------- */
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+  display: block;
+  color: #fff;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 1rem;
+  margin-bottom: 14px;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(255,255,255,0.06);
+  transition: 0.25s;
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 10px rgba(0, 234, 255, 0.5);
+  outline: none;
 }
 
-.header-bar { display:flex; align-items:center; gap:12px; width:100%; }
-header h1 { font-size: 1.1rem; font-weight:700; color:#fff; margin:0; letter-spacing:0.2px; }
-
-/* auth buttons */
-.auth-buttons { display:flex; align-items:center; gap:8px; }
-.username { color: rgba(255,255,255,0.9); font-weight:600; margin-right:6px; font-size:0.98rem; }
-
-/* primary button (reusable) */
-.btn,
-button.primary {
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding: 8px 12px;
+button {
+  padding: 12px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  font-weight:700;
+  font-weight: 600;
   background: linear-gradient(135deg, var(--accent), var(--accent-dark));
   color: #fff;
-  box-shadow: 0 6px 18px rgba(0,119,182,0.22);
-  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  transition: 0.25s;
 }
-.btn:active { transform: translateY(1px) scale(.997); }
-.btn.secondary {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
+button:hover {
+  background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+  box-shadow: 0 0 20px rgba(0, 234, 255, 0.4);
 }
 
-/* logout hover */
-.logout-btn:hover { background-color: #c62828; }
-
-/* nav */
-nav {
-  margin-top: 14px;
-  margin-bottom: 18px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.18);
-}
-nav ul {
-  list-style:none;
-  display:flex;
-  justify-content:center;
-  gap:10px;
-  background: linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.05));
-  padding: 6px;
-}
-nav ul li a {
-  display:block;
-  padding:10px 16px;
-  color: rgba(255,255,255,0.9);
-  text-decoration:none;
-  border-radius:8px;
-  font-weight:600;
-  transition: background .2s ease, color .2s ease;
-}
-nav ul li a:hover {
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-}
-
-/* --------- 3) Main & Sections --------- */
-main { padding: 18px 0; }
-section {
-  margin-bottom: 20px;
-  padding: 18px;
-  border-radius: calc(var(--glass-radius) - 2px);
-  background: transparent; /* allow backdrop blur to show page gradient */
-}
-
-/* Optional: make sections glassy too — toggle by uncommenting:
-section {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.06);
-  backdrop-filter: blur(4px);
-}
-*/
-
-/* --------- 4) Card / Currency Converter (glass) --------- */
-.card,
-.currency-converter {
-  position: relative;
-  border-radius: var(--glass-radius);
-  padding: 20px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  text-align:left;
-  background: var(--glass-1); /* translucent base */
+/* --------- Footer --------- */
+.footer {
+  margin-top: 40px;
+  background: var(--glass-1);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  border-radius: var(--radius);
+  padding: 20px;
+  text-align: center;
   border: 1px solid var(--glass-2);
-  box-shadow: 0 10px 30px rgba(2,6,23,0.45);
-  transition: transform .28s cubic-bezier(.2,.9,.3,1), box-shadow .28s ease;
-  overflow: hidden;
 }
-
-/* keep content readable on top */
-.card * , .currency-converter * { color: #fff; }
-
-/* hover lift */
-.card:hover, .currency-converter:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 48px rgba(2,6,23,0.6);
+.footer-links a {
+  color: #ffda79;
+  margin: 0 10px;
+  text-decoration: none;
+  font-weight: 600;
 }
-
-/* card image */
-.card img {
-  width:100%;
-  height:180px;
-  object-fit:cover;
-  border-radius: 10px;
-  display:block;
-  margin-bottom:8px;
-  border: 1px solid rgba(255,255,255,0.06);
+.footer-links a:hover {
+  text-decoration: underline;
 }
-
-/* headings (h2 and h3 inside cards) */
-.card h2, .card h3,
-.currency-converter h2, .currency-converter h3 {
-  font-size: 1.35rem;
-  font-weight: 800;
+.social-icons a {
   color: #fff;
-  margin: 0 0 8px 0;
-  text-shadow: 0 4px 18px rgba(0,0,0,0.6);
-  border-left: 5px solid rgba(255,255,255,0.85);
-  padding-left: 12px;
+  margin: 0 6px;
+  font-size: 1.2rem;
+  transition: 0.25s;
+}
+.social-icons a:hover {
+  color: #ffda79;
 }
 
-/* standard card text */
-.card p, .currency-converter p,
-.card span, .currency-converter span {
-  color: rgba(255,255,255,0.92);
-  font-size: 0.98rem;
-  line-height: 1.55;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.55);
-}
-
-/* --------- 5) Stock list buttons (kept, improved) --------- */
-.stock ul {
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:14px;
-  padding:0;
-  margin-top:8px;
-}
-.stockbtn {
-  display:block;
-  text-decoration:none;
-  width:100%;
-  padding:12px;
-  border-radius:10px;
-  cursor:pointer;
-  border: 1px solid rgba(255,255,255,0.12);
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03));
-  box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-  transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-}
-.stockbtn a { color: var(--muted); font-weight:700; text-decoration:none; font-size:1.02rem; }
-.stockbtn:hover {
-  transform: translateY(-4px);
-  background: linear-gradient(90deg, rgba(0,119,182,0.18), rgba(0,234,255,0.06));
-  box-shadow: 0 12px 30px rgba(0,119,182,0.12);
-}
-.stockbtn:hover a { color: #fff; }
-
-/* --------- 6) Forms, inputs, labels (glassy) --------- */
-.form-group { margin-bottom:14px; }
-label, .contact-form label {
-  display:block;
-  font-weight:700;
-  color: rgba(255,255,255,0.95);
-  margin-bottom:8px;
-  font-size:0.95rem;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.6);
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="number"],
-textarea,
-select {
-  width:100%;
-  padding:10px 14px;
-  border-radius:10px;
-  border: 1px solid rgba(255,255,255,0.14);
-  background: rgba(255,255,255,0.06);
-  color: #fff;
-  font-size:1rem;
-  outline: none;
-  transition: box-shadow .18s ease, border-color .18s ease, transform .12s ease;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-}
-
-input::placeholder, textarea::placeholder {
-  color: rgba(255,255,255,0.7);
-}
-
-input:focus, textarea:focus, select:focus {
-  border-color: var(--accent);
-  box-shadow: 0 6px 20px rgba(0,234,255,0.12);
-  transform: translateY(-1px);
-}
-
-/* error state */
-.input-error {
-  border-color: var(--danger) !important;
-  background: rgba(220,53,69,0.06) !important;
-}
-
-/* form layout helpers */
-.form-row { display: flex; gap:12px; }
-.form-row .col { flex:1; }
-
-/* --------- 7) Buttons (primary / ghost / clear) --------- */
-button, .btn {
-  border: none;
-  padding: 12px 14px;
-  border-radius: 10px;
-  cursor: pointer;
-  font-weight:700;
-}
-button.ghost {
-  background: transparent;
-  border: 1px solid rgba(255,255,255,0.12);
-  color: #fff;
-}
-button.clear-btn {
-  background: linear-gradient(90deg, #f44336, #c62828);
-  color: #fff;
-}
-button:focus { box-shadow: 0 8px 26px rgba(0,0,0,0.35); }
-
-/* --------- 8) Currency converter specific tweaks --------- */
-.currency-converter {
-  max-width: 420px;
-  margin-top: 20px;
-}
-.currency-converter h3 { margin-top: 0; }
-
-/* conversion button */
-.currency-converter .convert-btn {
-  background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-  color: white;
-  border-radius: 10px;
-  padding: 12px;
-  font-weight:800;
-  box-shadow: 0 10px 28px rgba(0,119,182,0.18);
-}
-
-/* result */
-#conversionResult {
-  margin-top:10px;
-  font-size:0.98rem;
-  color: rgba(255,255,255,0.95);
-}
-
-/* --------- 9) Contact form & contact-info (kept & modernised) --------- */
-.contact-grid {
-  display:grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 24px;
-}
-.contact-form {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02));
-  padding: 18px;
-  border-radius: 12px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.contact-form label { color: rgba(255,255,255,0.95); }
-.contact-form input, .contact-form textarea {
-  width: 100%;
-  border: 1px solid rgba(0,0,0,0.2);
-  background: rgba(255,255,255,0.04);
-  color: #fff;
-}
-
-/* contact-info */
-.contact-info {
-  background: linear-gradient(135deg, rgba(0,0,0,0.05), rgba(0,0,0,0.06));
-  padding: 18px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.contact-info h2, .contact-info p { color: #fff; }
-
-/* --------- 10) Expenses list & small components --------- */
-.expenses-list {
-  margin-top: 18px;
-  max-height: 220px;
-  overflow-y:auto;
-  padding-top: 8px;
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-.expense-item {
-  display:flex;
-  justify-content:space-between;
-  padding: 8px 0;
-  border-bottom: 1px dashed rgba(255,255,255,0.03);
-}
-.expense-item .description { font-weight:700; color: rgba(255,255,255,0.9); }
-.expense-item .amount { color: var(--accent); font-weight:800; }
-
-/* --------- 11) Toasts, loader, confirm box --------- */
-#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
-.toast {
-  display:inline-block;
-  padding:10px 14px;
-  border-radius:10px;
-  color:#fff;
-  box-shadow: 0 8px 26px rgba(0,0,0,0.35);
-  margin-bottom:10px;
-}
-.toast.success{ background: linear-gradient(90deg, #2ecc71, var(--success)); }
-.toast.error{ background: linear-gradient(90deg, #ff6b6b, var(--danger)); }
-.toast.info{ background: linear-gradient(90deg, #38bdf8, var(--accent)); }
-
-.loader {
-  width:28px;
-  height:28px;
-  border-radius:50%;
-  border:4px solid rgba(255,255,255,0.12);
-  border-top-color: var(--accent);
-  animation: spin 1s linear infinite;
-  display:inline-block;
-}
-@keyframes spin{ to { transform: rotate(360deg); } }
-
-#confirm-box {
-  display:none;
-  position:fixed;
-  top:50%;
-  left:50%;
-  transform: translate(-50%,-50%);
-  z-index:10000;
-  background: rgba(255,255,255,0.06);
-  padding:16px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,0.06);
-  box-shadow: 0 10px 40px rgba(2,6,23,0.6);
-}
-
-/* --------- 12) Footer --------- */
-.footer {
-  margin-top: 28px;
-  padding: 22px;
-  border-radius: 10px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.05), rgba(0,0,0,0.06));
-  color: #fff;
-  text-align:center;
-  border-top: 1px solid rgba(255,255,255,0.04);
-}
-.footer p { margin-bottom:8px; color: rgba(255,255,255,0.9); }
-.footer-links a { color: #ffd77a; margin: 0 10px; text-decoration:none; font-weight:600; }
-.footer-links a:hover { text-decoration:underline; }
-
-/* social icons */
-.social-icons a { color:#fff; margin:0 8px; font-size:1.15rem; }
-.social-icons a:hover { color:#ffd77a; }
-
-/* --------- 13) Responsive Layouts --------- */
-.dashboard-grid {
-  display:grid;
-  gap: 28px;
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 18px;
-}
-@media (max-width: 1024px) {
-  .dashboard-grid { grid-template-columns: 1fr; }
-  .contact-grid { grid-template-columns: 1fr; }
-}
+/* --------- Responsive --------- */
 @media (max-width: 768px) {
-  body { padding: 14px; }
-  header { padding: 10px; }
-  .container { padding: 6px; }
-  nav ul { flex-wrap:wrap; gap:8px; }
-  .contact-grid { grid-template-columns: 1fr; }
-  .card img { height:150px; }
-}
-
-/* --------- 14) Accessibility & Fallbacks --------- */
-/* focus outline for keyboard users */
-:focus {
-  outline: 3px solid rgba(0,234,255,0.14);
-  outline-offset: 2px;
-}
-
-/* browsers without backdrop-filter support */
-@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
-  .card, .currency-converter, .contact-form {
-    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
-    border: 1px solid rgba(255,255,255,0.06);
+  .header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .nav-right {
+    margin-left: 0;
   }
 }
-
-/* small helpers */
-.text-muted { color: rgba(255,255,255,0.7); font-size:.95rem; }
-.center { text-align:center; }
-.hidden { display:none !important; }
