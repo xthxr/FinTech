@@ -292,3 +292,25 @@ button:hover {
 .footer-links a:hover {
   text-decoration: underline;
 }
+
+
+/* Dashboard Grid → 2 cards per row */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns */
+  gap: 30px;
+  padding: 30px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr; /* Stack on smaller screens */
+  }
+}
+
+/* Make cards more spacious */
+.card {
+  padding: 25px;
+  min-height: 300px;
+}
+
