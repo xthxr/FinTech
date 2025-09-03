@@ -640,7 +640,7 @@ button:active {
 
 
 
-/* Glassmorphism Card with RGB Border Glow */
+/* Glassmorphism Card with White Border */
 .card,
 .currency-converter {
   position: relative;
@@ -658,49 +658,15 @@ button:active {
   background: rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
 
-/* RGB border effect */
-.card::before,
-.currency-converter::before {
-  content: "";
-  position: absolute;
-  inset: 0; /* covers full box */
-  padding: 2px; /* border thickness */
-  border-radius: 12px;
-  background: linear-gradient(
-    270deg,
-    #ff0000,
-    #ff7300,
-    #fffb00,
-    #48ff00,
-    #00ffd5,
-    #002bff,
-    #7a00ff,
-    #ff00ab,
-    #ff0000
-  );
-  background-size: 600% 600%;
-  animation: rgbGlow 12s linear infinite;
-  -webkit-mask: 
-    linear-gradient(#fff 0 0) content-box, 
-    linear-gradient(#fff 0 0); /* keeps glow only at border */
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-  z-index: -1;
-}
-
-@keyframes rgbGlow {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  /* simple white border */
+  border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
 .card:hover,
 .currency-converter:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 30px rgba(0,0,0,0.4);
+  box-shadow: 0 0 25px rgba(255,255,255,0.3);
 }
+
 
